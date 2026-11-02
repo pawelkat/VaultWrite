@@ -20,6 +20,17 @@ class VaultPathsTest {
         assertEquals("Notes/GymMonth settings.md", VaultPaths.noteRelativePath(" GymMonth settings "))
     }
 
+    @Test
+    fun appSettingsRelativePath() {
+        assertEquals("app_settings/GymMonth/settings.md", VaultPaths.appSettingsRelativePath("GymMonth", "settings.md"))
+        assertEquals("app_settings/GymMonth/default_gyms.json", VaultPaths.appSettingsRelativePath(" GymMonth ", "default_gyms.json"))
+    }
+
+    @Test(expected = IllegalArgumentException::class)
+    fun appSettingsRejectsNestedNames() {
+        VaultPaths.appSettingsRelativePath("../x", "settings.md")
+    }
+
     @Test(expected = IllegalArgumentException::class)
     fun rejectsDotDot() {
         VaultPaths.resolve("/v", "Notes/../../x.md")

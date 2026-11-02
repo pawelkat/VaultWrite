@@ -10,7 +10,7 @@ import org.junit.Test
 
 class VaultCatalogTest {
     private lateinit var root: File
-    private val rel = "Notes/GymMonth/default_gyms.json"
+    private val rel = "app_settings/GymMonth/default_gyms.json"
 
     @Before fun setUp() { root = Files.createTempDirectory("vault").toFile() }
     @After fun tearDown() { root.deleteRecursively() }

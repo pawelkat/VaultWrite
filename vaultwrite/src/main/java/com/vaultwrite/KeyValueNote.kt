@@ -5,7 +5,7 @@ import java.time.format.DateTimeFormatter
 
 /**
  * Settings-style note: YAML frontmatter + a two-column `| Setting | Value |` table.
- * Used for `Notes/<App> settings.md`. Never put secrets in [rows].
+ * Used for `app_settings/<App>/settings.md`. Never put secrets in [rows].
  */
 object KeyValueNote {
 

@@ -43,13 +43,13 @@ class VaultFileWriterTest {
     @Test
     fun writeNoteCreatesOverwritesAndDetectsSame() {
         val w = VaultFileWriter(root.absolutePath)
-        val a = w.writeNote("Notes/App settings.md", "one") as VaultWriteResult.Saved
+        val a = w.writeNote("app_settings/App/settings.md", "one") as VaultWriteResult.Saved
         assertTrue(a.createdFile)
-        assertEquals("one\n", w.readNote("Notes/App settings.md"))
-        val b = w.writeNote("Notes/App settings.md", "two\n") as VaultWriteResult.Saved
+        assertEquals("one\n", w.readNote("app_settings/App/settings.md"))
+        val b = w.writeNote("app_settings/App/settings.md", "two\n") as VaultWriteResult.Saved
         assertFalse(b.createdFile)
         assertFalse(b.duplicate)
-        val c = w.writeNote("Notes/App settings.md", "two\n") as VaultWriteResult.Saved
+        val c = w.writeNote("app_settings/App/settings.md", "two\n") as VaultWriteResult.Saved
         assertTrue(c.duplicate)
     }
 

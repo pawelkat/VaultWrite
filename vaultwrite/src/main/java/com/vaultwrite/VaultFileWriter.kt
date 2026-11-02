@@ -37,7 +37,7 @@ class VaultFileWriter(vaultRoot: String) {
         }.getOrElse { failed(it, file) }
     }
 
-    /** Create or overwrite a whole note (e.g. `Notes/GymMonth settings.md`). Skips identical content. */
+    /** Create or overwrite a whole note (e.g. `app_settings/GymMonth/settings.md`). Skips identical content. */
     fun writeNote(relativePath: String, markdown: String): VaultWriteResult {
         val file = runCatching { VaultPaths.resolve(root, relativePath) }
             .getOrElse { return VaultWriteResult.Failed(it.message ?: "bad path") }

@@ -15,12 +15,12 @@ All files access (`MANAGE_EXTERNAL_STORAGE` on Android 11+, `WRITE_EXTERNAL_STOR
 | Type | What |
 | --- | --- |
 | `DailyNoteAppender` | Pure markdown: append a bullet under any heading (`Workouts` → `## Workouts`), before the next heading of same/higher level; create the heading if missing; create a Daily stub (Templates/Daily shape: Private / UBS / Notes / Links / Photos + target heading) if the file is missing; skip duplicates by `dedupeKey` (any line containing it) or identical bullet. |
-| `VaultPaths` | `DEFAULT_VAULT_ROOT`, `dailyRelativePath(date)` → `Daily/YYYY-MM-DD.md`, `noteRelativePath(title)` → `Notes/<title>.md`, `resolve()` (rejects `..` / absolute paths). |
+| `VaultPaths` | `DEFAULT_VAULT_ROOT`, `dailyRelativePath(date)` → `Daily/YYYY-MM-DD.md`, `appSettingsRelativePath(app, file)` → `app_settings/<App>/<file>` (per-app settings/catalogs — keep them out of `Notes/`), `noteRelativePath(title)` → `Notes/<title>.md`, `resolve()` (rejects `..` / absolute paths). |
 | `VaultFileWriter(root)` | JVM-only IO: `appendToDaily(date, heading, bullet, dedupeKey)`, `writeNote(relativePath, markdown)` (create/overwrite, skips identical), `readNote()`. Never throws. |
 | `StorageAccess(context)` | `hasWriteAccess()`, `manageAllFilesIntent()` (ToDaily UX). |
 | `VaultWriter(context) { root }` | Façade = storage check + `VaultFileWriter`. Returns `VaultWriteResult.NeedStoragePermission` when access is missing. |
 | `VaultCatalog` | User-editable JSON catalogs: `loadOrSeed(root, relPath, vaultAvailable, bundled, accept)` — vault file missing → seed once from the APK copy; exists → always use it (never overwritten); no access / unreadable / invalid → bundled fallback. |
-| `KeyValueNote` | Render/parse a settings note: YAML frontmatter + `\| Setting \| Value \|` table. |
+| `KeyValueNote` | Render/parse a settings note (e.g. `app_settings/GymMonth/settings.md`): YAML frontmatter + `\| Setting \| Value \|` table. |
 | `VaultWriteResult` | `Saved(relativePath, absolutePath, createdFile, duplicate, bullet)` / `NeedStoragePermission` / `Failed`. |
 
 All IO is blocking — call from `Dispatchers.IO`.

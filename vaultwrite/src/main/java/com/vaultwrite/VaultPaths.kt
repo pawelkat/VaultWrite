@@ -9,11 +9,23 @@ object VaultPaths {
     const val DAILY_FOLDER = "Daily"
     const val NOTES_FOLDER = "Notes"
 
+    /** Per-app config/catalog files live here, not in Notes/: `app_settings/<App>/…`. */
+    const val APP_SETTINGS_FOLDER = "app_settings"
+
     fun dailyRelativePath(date: LocalDate): String = "$DAILY_FOLDER/$date.md"
 
     fun dailyFile(vaultRoot: String, date: LocalDate): File = resolve(vaultRoot, dailyRelativePath(date))
 
     fun noteRelativePath(title: String): String = "$NOTES_FOLDER/${title.trim()}.md"
+
+    /** `app_settings/GymMonth/settings.md` for (`GymMonth`, `settings.md`). */
+    fun appSettingsRelativePath(appName: String, fileName: String): String {
+        val app = appName.trim()
+        val file = fileName.trim()
+        require(app.isNotEmpty() && '/' !in app && app != "..") { "bad app name: $appName" }
+        require(file.isNotEmpty() && '/' !in file && file != "..") { "bad file name: $fileName" }
+        return "$APP_SETTINGS_FOLDER/$app/$file"
+    }
 
     /**
      * Resolve [relativePath] under [vaultRoot]. Rejects absolute paths and `..` escapes so a
