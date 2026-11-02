@@ -77,4 +77,4 @@ aarch64 hosts (Termux / box): pass `-Pandroid.aapt2FromMavenOverride=$ANDROID_HO
 
 ## License
 
-Same terms as GymMonth (no license file yet — personal project).
+Proprietary / TBD (same as GymMonth).
