@@ -19,6 +19,7 @@ All files access (`MANAGE_EXTERNAL_STORAGE` on Android 11+, `WRITE_EXTERNAL_STOR
 | `VaultFileWriter(root)` | JVM-only IO: `appendToDaily(date, heading, bullet, dedupeKey)`, `writeNote(relativePath, markdown)` (create/overwrite, skips identical), `readNote()`. Never throws. |
 | `StorageAccess(context)` | `hasWriteAccess()`, `manageAllFilesIntent()` (ToDaily UX). |
 | `VaultWriter(context) { root }` | Façade = storage check + `VaultFileWriter`. Returns `VaultWriteResult.NeedStoragePermission` when access is missing. |
+| `VaultCatalog` | User-editable JSON catalogs: `loadOrSeed(root, relPath, vaultAvailable, bundled, accept)` — vault file missing → seed once from the APK copy; exists → always use it (never overwritten); no access / unreadable / invalid → bundled fallback. |
 | `KeyValueNote` | Render/parse a settings note: YAML frontmatter + `\| Setting \| Value \|` table. |
 | `VaultWriteResult` | `Saved(relativePath, absolutePath, createdFile, duplicate, bullet)` / `NeedStoragePermission` / `Failed`. |
 
