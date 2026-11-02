@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  VaultWrite does not merge storage permissions into host apps on purpose:
+  each app declares MANAGE_EXTERNAL_STORAGE / WRITE_EXTERNAL_STORAGE itself (see README).
+  No INTERNET — the vault is synced by DriveSync, not by this library.
+-->
+<manifest />
